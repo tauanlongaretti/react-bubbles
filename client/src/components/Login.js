@@ -1,4 +1,5 @@
 import React from "react";
+import axiosWithAuth from "../utils/axiosWithAuth";
 
 class Login extends React.Component {
   state = {
@@ -19,10 +20,18 @@ class Login extends React.Component {
 
   login = e => {
     e.preventDefault();
+    axiosWithAuth()
+    .post("/login", this.state.credentials)
+    .then(res => {
+      localStorage.setItem("token", res.date.payload);
+      this.props.history.push("/protected");
+    })
+    .catch(err => {
+      localStorage.removeItem("token");
+      console.log("invalid login: ", err);
+    })
   };
 
-  // make a post request to retrieve a token from the api
-  // when you have handled the token, navigate to the BubblePage route
   render () {
     return (
       <div>
