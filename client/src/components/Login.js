@@ -1,5 +1,28 @@
 import React from "react";
 import axiosWithAuth from "../utils/axiosWithAuth";
+import styled from "styled-components";
+
+const StyledDiv = styled.div`
+  text-align: center;
+  margin: 200px auto;
+`;
+
+const StyledInput = styled.input`
+  border-radius: 8px;
+  border: 2px solid lightblue;
+  width: 140px;
+  height: 25px;
+  margin-bottom: 20px;
+`;
+
+const StyledButton = styled.button`
+  margin: 30px 0px 0px 58px;
+  border: 1px solid black;
+  border-radius: 8px;
+  background-color: lightblue;
+  width: 140px;
+  height: 25px;
+`;
 
 class Login extends React.Component {
   state = {
@@ -34,11 +57,11 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div>
+      <StyledDiv>
         <h2>Welcome To Bubbles!</h2>
         <form onSubmit={this.login}>
           <div>
-            <input
+            <StyledInput
               className="username-input"
               type="text"
               name="username"
@@ -48,7 +71,7 @@ class Login extends React.Component {
             />
           </div>
           <div>
-            <input
+            <StyledInput
               className="password-input"
               type="text"
               name="password"
@@ -57,9 +80,9 @@ class Login extends React.Component {
               onChange={this.handleChange}
             />
           </div>
-          <button className="login-button">Log in</button>
+          <StyledButton className="login-button">Log in</StyledButton>
         </form>
-      </div>
+      </StyledDiv>
     );
   }
 }

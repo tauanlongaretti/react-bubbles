@@ -94,6 +94,32 @@ const ColorList = ({ colors, updateColors }) => {
           </li>
         ))}
       </ul>
+      {!editing && (
+      <form onSubmit={addColor} className="new-color-form">
+        <legend>Add Color</legend>
+        <label>
+          color name:
+        <input 
+          className="new-color-input"
+          type="text"
+          name="color"
+          onChange={handleSubmit}
+          value={newColor.color} 
+        />
+        </label>
+        <label>
+          hex code:
+        <input 
+          className="new-color-input"
+          type="text"
+          name="hex"
+          onChange={handleSubmit}
+          value={newColor.hex} 
+        />
+        </label>
+        <button className="button" type="submit">Add</button>  
+      </form>
+      )}
       {editing && (
         <form onSubmit={saveEdit}>
           <legend>Edit color</legend>
@@ -125,30 +151,6 @@ const ColorList = ({ colors, updateColors }) => {
         </form>
       )}
       <div className="spacer" />
-      <form onSubmit={addColor} className="new-color-form">
-        <legend>Add Color</legend>
-        <label>
-          color name:
-        <input 
-          className="new-color-input"
-          type="text"
-          name="color"
-          onChange={handleSubmit}
-          value={newColor.color} 
-        />
-        </label>
-        <label>
-          hex code:
-        <input 
-          className="new-color-input"
-          type="text"
-          name="hex"
-          onChange={handleSubmit}
-          value={newColor.hex} 
-        />
-        </label>
-        <button className="button" type="submit">Add</button>  
-      </form>
     </div>
   );
 };

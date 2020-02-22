@@ -4,18 +4,32 @@ import BubblePage from "./components/BubblePage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./components/Login";
 import "./styles.scss";
+import styled from "styled-components";
+
+const StyledLinks = styled(Link)`
+  margin-left: 80%;
+  text-decoration: none;
+  color: gray;
+`;
+
+const StyledLink = styled(Link)`
+  margin: 2%;
+  text-decoration: none;
+  color: gray;
+  font-size: 18px
+`;
 
 function App() {
   return (
     <Router>
-      <div>
-        <Link className="link" to="/login">
+      <StyledLinks>
+        <StyledLink className="link" to="/login">
           Login
-        </Link>
-        <Link className="link" to="/protected">
+        </StyledLink>
+        <StyledLink className="link" to="/protected">
           Bubbles
-        </Link>
-      </div>
+        </StyledLink>
+      </StyledLinks>
       <div className="App">
         <Switch>
           <ProtectedRoute exact path="/protected" component={BubblePage} />
