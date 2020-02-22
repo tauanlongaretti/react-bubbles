@@ -18,15 +18,32 @@ const ColorList = ({ colors, updateColors }) => {
 
   const saveEdit = e => {
     e.preventDefault();
-    // Make a put request to save your updated color
-    // think about where will you get the id from...
-    // where is is saved right now?
+    axiosWithAuth()
+      .put(`/colors/${colorToEdit.id}`, colorToEdit)
+      .then(res => {
+        axiosWithAuth()
+          .get("/colors")
+          .then(res => {
+            console.log(res);
+            updateColors(res.data);
+          });
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
-  const deleteColor = colors => {
+  const deleteColor = colorToEdit => {
     axiosWithAuth()
-      .delete(`http://localhost:5000/api/colors/${colorToEdit.id}`, colors)
+      .delete(`/colors/${colorToEdit.id}`, colorToEdit)
       .then(res => {
+        axiosWithAuth()
+          .get("/colors")
+          .then(res => {
+            console.log(res);
+            updateColors(res.data);
+          });
         console.log(res);
       })
       .catch(err => {
@@ -59,7 +76,7 @@ const ColorList = ({ colors, updateColors }) => {
       </ul>
       {editing && (
         <form onSubmit={saveEdit}>
-          <legend>edit color</legend>
+          <legend>Edit color</legend>
           <label>
             color name:
             <input
@@ -83,13 +100,29 @@ const ColorList = ({ colors, updateColors }) => {
           </label>
           <div className="button-row">
             <button type="submit">save</button>
-            <button type="delete" onClick={deleteColor}>delete</button>
             <button onClick={() => setEditing(false)}>cancel</button>
           </div>
         </form>
       )}
       <div className="spacer" />
-      {/* stretch - build another form here to add a color */}
+      <form className="new-color-form">
+        <legend>Add Color</legend>
+        <label>
+          color name:
+        <input 
+          className="new-color-input"
+          // value={colorToAdd.color} 
+        />
+        </label>
+        <label>
+          hex code:
+        <input 
+          className="new-color-input"
+          // value={colorToAdd.color} 
+        />
+        </label>
+        <button className="button" type="submit">Add</button>  
+      </form>
     </div>
   );
 };
