@@ -21,24 +21,24 @@ class Login extends React.Component {
   login = e => {
     e.preventDefault();
     axiosWithAuth()
-    .post("/login", this.state.credentials)
-    .then(res => {
-      localStorage.setItem("token", res.date.payload);
-      this.props.history.push("/protected");
-    })
-    .catch(err => {
-      localStorage.removeItem("token");
-      console.log("invalid login: ", err);
-    })
+      .post("/login", this.state.credentials)
+      .then(res => {
+        localStorage.setItem("token", res.data.payload);
+        this.props.history.push("/protected");
+      })
+      .catch(err => {
+        localStorage.removeItem("token");
+        console.log("invalid login: ", err);
+      });
   };
 
-  render () {
+  render() {
     return (
       <div>
         <h2>Welcome To Bubbles!</h2>
         <form onSubmit={this.login}>
           <div>
-            <input 
+            <input
               className="username-input"
               type="text"
               name="username"
@@ -54,14 +54,14 @@ class Login extends React.Component {
               name="password"
               placeholder="Password"
               value={this.state.credentials.password}
-              onChange={this.handleChange} 
+              onChange={this.handleChange}
             />
           </div>
           <button className="login-button">Log in</button>
         </form>
       </div>
     );
-  };
+  }
 }
 
 export default Login;
